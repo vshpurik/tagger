@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
@@ -109,6 +110,27 @@ public class FileMgmt extends Controller {
 
     public static Result displayTopRankedTags() {
     	List<FileTag> fileTagList = FileTag.getMostRanked(ConfigParameter.MAX_TAG_DISPLAY_COUNT);
+    	
+    	// populate tagTextSize
+    	
+    	// step 1: find max rank value
+    	Integer maxTagRankTmp = Integer.MIN_VALUE;
+    	for(FileTag fileTag: fileTagList) {
+    		if (fileTag.tagRank > maxTagRankTmp)
+    			maxTagRankTmp = fileTag.tagRank;
+    	}
+    	
+    	float maxTagRank = maxTagRankTmp;
+    	
+    	// step 2: calculate size adjustment coefficient.
+    	float k = ConfigParameter.MAX_TEXT_SIZE_TOP / maxTagRank;
+    	
+    	for(FileTag fileTag: fileTagList) {
+    		fileTag.tagTextSize = Math.round(fileTag.tagRank * k);
+    	}
+
+    	Collections.shuffle(fileTagList);
+    	
     	return ok(views.html.displayTopRankedTags.render("Tag Cloud", fileTagList));
     }
 

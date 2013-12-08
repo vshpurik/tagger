@@ -37,7 +37,7 @@ public class CreateUpdateAuditData extends Model {
 	protected void initNew() {
 		createDate = new Date();
 		updateDate = createDate;
-		createIp = Http.Context.current().request().remoteAddress();
+		// createIp = Http.Context.current().request().remoteAddress();
 		updateIp = createIp;
 	}
 
@@ -49,7 +49,7 @@ public class CreateUpdateAuditData extends Model {
 	@Transient
 	protected void updateAuditData() {
 		updateDate = new Date();
-		updateIp = Http.Context.current().request().remoteAddress();
+		// updateIp = Http.Context.current().request().remoteAddress();
 	}
 	
 	@Transient

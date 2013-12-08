@@ -14,6 +14,8 @@ public class ConfigParameter {
 	public static final String FLASH_MESSAGE_KEY = "message";
 	public static final String FLASH_ERROR_KEY = "error";
 
+	public static final float MAX_TEXT_SIZE = 100;
+	
 	public static final Calendar calendar = Calendar.getInstance();
 	public static final int CopyrightYear = calendar.get(Calendar.YEAR);
 	

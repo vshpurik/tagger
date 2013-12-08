@@ -29,6 +29,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.avaje.ebean.Ebean;
+import com.google.common.base.CharMatcher;
+
 import play.Logger;
 
 import models.CreateUpdateAuditData;
@@ -97,38 +100,51 @@ public class UserFile extends CreateUpdateAuditData {
 	
 	private boolean processFile(File uploadedFile) {
 		
-        StringBuilder fileContent = new StringBuilder((int)uploadedFile.length());
-        
-        Scanner scanner;
-        try {
-        	// scanner = new Scanner(uploadedFile);
-        	scanner = new Scanner((Readable) new BufferedReader(new FileReader(uploadedFile)));
-        } catch (FileNotFoundException e) {
-        	Logger.error("Uploaded file can not be found.");
-        	return false;
-        }
-        
-        String lineSeparator = System.getProperty("line.separator");
+		StringBuilder fileContent = new StringBuilder((int)uploadedFile.length());
 
-        try {
-            while(scanner.hasNextLine()) {
-            	Logger.info("processing line from file ...");
-            	String line = scanner.nextLine();
-                fileContent.append(line + lineSeparator);
-                findTags(line);
-            }
-            this.fileContent = fileContent.toString();
-    		save();
+		Scanner scanner;
+		try {
+			// scanner = new Scanner(uploadedFile);
+			scanner = new Scanner((Readable) new BufferedReader(new FileReader(uploadedFile)));
+		} catch (FileNotFoundException e) {
+			Logger.error("Uploaded file can not be found.");
+			return false;
+		}
+
+		String lineSeparator = System.getProperty("line.separator");
+
+		try {
+			while(scanner.hasNextLine()) {
+				Logger.info("processing line from file ...");
+				String line = scanner.nextLine();
+				fileContent.append(line + lineSeparator);
+				findTags(line);
+			}
+			this.fileContent = fileContent.toString();
+			save();
+
+			for(Entry<String, FileTag> e: tagMap.entrySet()) {
+				Logger.debug("adding " + e.getKey());
+				tags.add(e.getValue());
+			}
     		
-    		for(Entry<String, FileTag> e: tagMap.entrySet()) {
-    			Logger.debug("adding " + e.getKey());
-    			tags.add(e.getValue());
-    		}
-    		
-    		Logger.debug("UserFile.processFile(): saving tags");
-    		this.saveManyToManyAssociations("tags");
-    		
-    		this.appUser.addTags(tags);
+			Logger.debug("UserFile.processFile(): saving tags");
+			this.saveManyToManyAssociations("tags");
+
+			this.appUser.addTags(tags);
+
+			Ebean.beginTransaction();
+			try {
+				for(FileTag fileTag: tagMap.values()) {
+					int rankIncrement = fileTag.tagRankIncrement;
+					fileTag.refresh();
+					fileTag.tagRank += rankIncrement;
+					fileTag.save();
+				}
+				Ebean.commitTransaction();
+			} finally {
+				Ebean.endTransaction();
+			}
     		
             return true;
             
@@ -139,30 +155,22 @@ public class UserFile extends CreateUpdateAuditData {
     }
 	
 	private void findTags(String line) {
-
-		// TODO there is a better way to do this ...
-		// clean up the line
-		line = line.replace('.', ' ');
-		line = line.replace(',', ' ');
-		line = line.replace('%', ' ');
-		// TODO remove anything else that is non an alphanumeric character.
-		
 		String[] words = line.split(" ");
 		for(String word: words) {
-			word = word.trim().toLowerCase();
-			
-			Logger.debug("processing |" + word + "|");
+			word = 	CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(word).toLowerCase();
 			
 			if (tagSet.contains(word)) {
 				// this word appeared more than once in the uploaded file, add it to the tagMap
 				
 				// check if tagMap already has this tag
-				if (tagMap.containsKey(word)) {
-					// TODO already have this entry, just increment rank count
-				} else {
+				FileTag fileTag = tagMap.get(word);
+				if (fileTag == null) {
 					// new tag, add it to the map
-					FileTag fileTag = FileTag.getByTagName(word);
+					fileTag = FileTag.getByTagName(word);
 					tagMap.put(word, fileTag);
+				} else {
+					// just increment rank count
+					++fileTag.tagRankIncrement;
 				}
 			} else {
 				// this is the first time this word appeared in the uploaded file, add it to the tagSet

@@ -3,19 +3,50 @@
 @main(title, models.GlobalEnum.SiteNavigationOption.none) {
 
 	@if(tagList.size() == 0) {
-	
-		<div class="row-fluid">
-			<h3>User has no tags.</h3>
-		</div>	
-	
+		<h3>There are no tags in the system.</h3>
 	} else {
-	
-		<div class="row-fluid">
-			@for(tag <- tagList) {
-				@tag.tagName &nbsp;
-			}
-		</div>
 		
+		<script src="@routes.Assets.at("d3-cloud-1.0.4/lib/d3/d3.js")"></script>
+		<script src="@routes.Assets.at("d3-cloud-1.0.4/d3.layout.cloud.js")"></script>
+		
+		<script>
+			var fill = d3.scale.category20();
+	
+			d3.layout.cloud().size([600, 600])
+				.words([
+					@for(tag <- tagList) {
+						{text: "@tag.tagName", size: @tag.tagTextSize},
+		    		}
+				])
+				.padding(5)
+				.rotate(0)
+				.font("Impact")
+				.fontSize(function(d) { return d.size; })
+				.on("end", draw)
+				.start();
+	
+			function draw(words) {
+				d3.select("body").append("svg")
+					.attr("width", 600)
+					.attr("height", 600)
+					.append("g")
+					.attr("transform", "translate(300,300)")
+					.selectAll("text")
+					.data(words)
+					.enter().append("text")
+					.style("font-size", function(d) { return d.size + "px"; })
+					.style("font-family", "Impact")
+					.style("fill", function(d, i) { return fill(i); })
+					.attr("text-anchor", "middle")
+					.attr("transform", function(d) {
+						return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+					})
+					.text(function(d) { return d.text; });
+			}
+			
+		</script>
+	
 	}
-
 }
+
+</body>

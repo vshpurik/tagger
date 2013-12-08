@@ -1,6 +1,5 @@
 package models.product;
 
-import java.io.File;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import play.Logger;
 
@@ -37,6 +37,12 @@ public class FileTag extends CreateUpdateAuditData {
 
 	@Column(name="tag_rank")
 	public Integer tagRank;
+
+	@Transient
+	public int tagRankIncrement = 1;
+
+	@Transient
+	public int tagTextSize;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
 	@JoinTable(
@@ -86,6 +92,7 @@ public class FileTag extends CreateUpdateAuditData {
 		initNew();
 		this.tagName = tagName;
 		this.tagRank = 0;
+		this.tagRankIncrement = 1;
 		return true;
 	}
 }

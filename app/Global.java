@@ -17,6 +17,7 @@ import com.feth.play.module.pa.PlayAuthenticate;
 import com.feth.play.module.pa.PlayAuthenticate.Resolver;
 import com.feth.play.module.pa.exceptions.AccessDeniedException;
 import com.feth.play.module.pa.exceptions.AuthException;
+import com.google.common.base.CharMatcher;
 
 import play.mvc.Call;
 

@@ -1,29 +1,82 @@
-TODO:
+Heroku url: http://safe-dawn-5454.herokuapp.com
 
-- figure out how to configure smtp using heroku's credentials instead of mine
+Git url:
+
+Assumptions:
+
+1. Files will contain ASCII/UTF-8 encoded text
+2. Tags will be generated based on alphanumeric content only
+3.    
+
+Tag Cloud alternative solutions:
+  - http://www.goat1000.com/tagcanvas.php
+  - http://www.treesheets.org/widgets/word-cloud/
 
 =========================================================================
 
 
 // Heroku database info
-heroku-postgres-ae21f95b :: rose
 
 Host		ec2-54-204-37-113.compute-1.amazonaws.com
+Port		5432
 Database	d46adjv2qqh35n
 User		vkekwpfjumwxci
-Port		5432
 Password	ZXNzxqbiz0o5Nf6OlYn-epEzP4
 
+=========================================================================
+=========================================================================
+=========================================================================
+
+=========================================================================
+
+TODO:
+
+- figure out how to configure smtp using heroku's credentials instead of mine
+- remove IP data from CreateUpdateAuditData
+
+
 --------------------------------------------------------------------------
 
-$ heroku create
-Creating safe-dawn-5454... done, stack is cedar
-http://safe-dawn-5454.herokuapp.com/ | git@heroku.com:safe-dawn-5454.git
-Git remote heroku added
-vlad@VLAD-PC /c/dev/tagger (master)
+git@heroku.com:safe-dawn-5454.git
 
 --------------------------------------------------------------------------
 
+// Heroku deployment steps
 
-// PlayAuthenticate page
-https://github.com/joscha/play-authenticate
+$ git add .
+$ git commit -m "somecomment"
+$ git push heroku master
+$ heroku open
+
+=========================================================================
+
+// Cleanup all uploaded data
+
+delete from app_user_file_tag
+delete from user_file_file_tag
+delete from file_tag
+delete from user_file
+
+=========================================================================
+
+Git page:
+https://github.com/jasondavies/d3-cloud
+
+Configuration notes:
+http://www.jasondavies.com/wordcloud/about/
+
+
+Make sure not to fall for this issue:
+http://stackoverflow.com/questions/17551985/collision-with-word-cloud-generator-d3-js
+
+
+---
+http://stackoverflow.com/questions/17526020/d3-word-clouds-too-much-overlaps-occurring
+
+Found the solution. I was not using the rotate() function call as i want text to be horizontally placed. i thought leaving out the call entirely would help.
+appears not to be the case. so i add rotate (0) and that's it. now i get a good-looking word cloud.
+TIP: i use stroke: black against text styles and this gives a neat presentation.
+
+---
+Some more discussions on using it:
+http://stackoverflow.com/questions/14448482/d3-library-how-to-access-data-from-json-in-this-example

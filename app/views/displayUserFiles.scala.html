@@ -18,7 +18,6 @@
 				<th>File Id</th>
 				<th>File Name</th>
 				<th>Upload Date</th>
-				<th>Uploaded From</th>
 				<th></th>
 			</tr>
 			
@@ -28,7 +27,6 @@
 					<td>
 						<a href="@{controllers.routes.FileMgmt.displayUserFileTags(userFile.userFileId)}">@userFile.fileName</a></td>
 					<td>@userFile.createDate</td>
-					<td>@userFile.createIp</td>
 				</tr>
 			}		
 			</table>

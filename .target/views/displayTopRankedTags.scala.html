@@ -1,0 +1,62 @@
+@(title: String, tagList: List[models.product.FileTag])
+
+@main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+	@if(tagList.size() == 0) {
+		<h3>There are no tags in the system.</h3>
+	} else {
+	
+		@*
+		<!--[if lt IE 9]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+		<script src="tagcanvas.min.js" type="text/javascript"></script>
+		*@
+		
+		<!--[if lt IE 9]><script type="text/javascript" src="excanvas.js"></script><![endif]-->
+		<script src="@routes.Assets.at("tagcanvas/jquery.tagcanvas.min.js")" type="text/javascript"></script>
+		
+		<div id="myCanvasContainer">
+			<canvas width="900" height="600" id="myCanvas">
+				<p>Anything in here will be replaced on browsers that support the canvas element</p>
+				
+				<ul>
+					@for(tag <- tagList) {
+						<li><a href="@{controllers.routes.FileMgmt.displayTagInfo(tag.fileTagId)}">@tag.tagName</a></li>
+		    		}
+				</ul>
+				
+			</canvas>
+		</div>
+		
+		<script type="text/javascript">
+			window.onload = function() {
+				try {
+				TagCanvas.Start('myCanvas');
+				} catch(e) {
+					// something went wrong, hide the canvas container
+					document.getElementById('myCanvasContainer').style.display = 'none';
+				}
+			};
+		</script>
+		
+		<script type="text/javascript">
+			$(document).ready(function() {
+				if( ! $('#myCanvas').tagcanvas({
+					textColour : '#ffffff',
+					outlineThickness : 1,
+					maxSpeed : 0.03,
+					depth : 0.75
+				})) {
+					// TagCanvas failed to load
+					$('#myCanvasContainer').hide();
+				}
+			});
+		</script>
+
+		<script type="text/javascript">
+			function displayTagInfo(tagName, tagTank) {
+				alert(tagName + ' - ' + tagRank);
+			}
+		</script>
+		
+	}
+}

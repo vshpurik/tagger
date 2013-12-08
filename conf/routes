@@ -14,6 +14,8 @@ GET     /displayUserFiles                             controllers.FileMgmt.displ
 GET     /displayUserFileTags/:userFileId              controllers.FileMgmt.displayUserFileTags(userFileId: Long)
 GET     /displayUserTags                              controllers.FileMgmt.displayUserTags()
 GET     /displayAllTags                               controllers.FileMgmt.displayAllTags()
+GET     /displayTopRankedTags                         controllers.FileMgmt.displayTopRankedTags()
+GET     /displayTagInfo/:fileTagId                    controllers.FileMgmt.displayTagInfo(fileTagId: Long)
 
 #######################################################################
 #   Account Management

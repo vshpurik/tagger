@@ -15,6 +15,10 @@ public class ConfigParameter {
 	public static final String FLASH_ERROR_KEY = "error";
 
 	public static final float MAX_TEXT_SIZE = 100;
+	public static final int MAX_TAG_DISPLAY_COUNT = 500;
+	
+	public static final String[] USELESS_WORDS = {"a", "and", "as", "in", "is", "of", "that", "the", "this", "to", "with"};
+	public static final int FILE_TAG_MIN_LENGTH = 2;
 	
 	public static final Calendar calendar = Calendar.getInstance();
 	public static final int CopyrightYear = calendar.get(Calendar.YEAR);

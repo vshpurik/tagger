@@ -12,22 +12,24 @@
 		<script>
 			var fill = d3.scale.category20();
 	
-			d3.layout.cloud().size([600, 600])
-				.words([
-					@for(tag <- tagList) {
-						{text: "@tag.tagName", size: @tag.tagTextSize},
-		    		}
-				])
+			d3.layout.cloud()
+				.size([900, 600])
+				.timeInterval(10)
 				.padding(5)
 				.rotate(0)
 				.font("Impact")
 				.fontSize(function(d) { return d.size; })
 				.on("end", draw)
+				.words([
+					@for(tag <- tagList) {
+						{text: "@tag.tagName", size: @tag.tagTextSize},
+		    		}
+				])
 				.start();
 	
 			function draw(words) {
 				d3.select("body").append("svg")
-					.attr("width", 600)
+					.attr("width", 900)
 					.attr("height", 600)
 					.append("g")
 					.attr("transform", "translate(300,300)")
@@ -48,5 +50,3 @@
 	
 	}
 }
-
-</body>

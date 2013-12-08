@@ -1,19 +1,18 @@
-Heroku url: http://safe-dawn-5454.herokuapp.com
+Heroku url:
+http://safe-dawn-5454.herokuapp.com
 
-Git url:
+GitHub url:
+https://github.com/vshpurik/tagger
+
+=========================================================================
 
 Assumptions:
 
 1. Files will contain ASCII/UTF-8 encoded text
 2. Tags will be generated based on alphanumeric content only
-3.    
-
-Tag Cloud alternative solutions:
-  - http://www.goat1000.com/tagcanvas.php
-  - http://www.treesheets.org/widgets/word-cloud/
+3. The same file is allowed to be processed multiple times (affecting tag ranks)    
 
 =========================================================================
-
 
 // Heroku database info
 
@@ -24,20 +23,11 @@ User		vkekwpfjumwxci
 Password	ZXNzxqbiz0o5Nf6OlYn-epEzP4
 
 =========================================================================
-=========================================================================
-=========================================================================
-
-=========================================================================
 
 TODO:
-
 - figure out how to configure smtp using heroku's credentials instead of mine
 - remove IP data from CreateUpdateAuditData
 
-
---------------------------------------------------------------------------
-
-git@heroku.com:safe-dawn-5454.git
 
 --------------------------------------------------------------------------
 
@@ -65,18 +55,5 @@ https://github.com/jasondavies/d3-cloud
 Configuration notes:
 http://www.jasondavies.com/wordcloud/about/
 
-
-Make sure not to fall for this issue:
-http://stackoverflow.com/questions/17551985/collision-with-word-cloud-generator-d3-js
-
-
----
-http://stackoverflow.com/questions/17526020/d3-word-clouds-too-much-overlaps-occurring
-
-Found the solution. I was not using the rotate() function call as i want text to be horizontally placed. i thought leaving out the call entirely would help.
-appears not to be the case. so i add rotate (0) and that's it. now i get a good-looking word cloud.
-TIP: i use stroke: black against text styles and this gives a neat presentation.
-
----
-Some more discussions on using it:
-http://stackoverflow.com/questions/14448482/d3-library-how-to-access-data-from-json-in-this-example
+How to set font size in js using domain/range:
+http://stackoverflow.com/questions/10727334/d3-js-tag-cloud-setting-text-size-range

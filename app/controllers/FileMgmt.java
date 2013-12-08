@@ -107,6 +107,11 @@ public class FileMgmt extends Controller {
     	return ok(views.html.displayUserTags.render("User Tag List", appUser.userTags));
     }
 
+    public static Result displayTopRankedTags() {
+    	List<FileTag> fileTagList = FileTag.getMostRanked(ConfigParameter.MAX_TAG_DISPLAY_COUNT);
+    	return ok(views.html.displayTopRankedTags.render("Tag Cloud", fileTagList));
+    }
+
     public static Result displayAllTags() {
     	List<FileTag> fileTagList = FileTag.getAll();
     	
@@ -129,5 +134,9 @@ public class FileMgmt extends Controller {
     	
     	return ok(views.html.displayAllTags.render("Tag Cloud", fileTagList));
     }
-    
+
+    public static Result displayTagInfo(Long fileTagId) {
+    	FileTag fileTag = FileTag.findById(fileTagId);
+    	return ok(views.html.displayTagInfo.render("Tag Info", fileTag));
+    }
 }

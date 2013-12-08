@@ -1,0 +1,17 @@
+@(title: String, fileTag: models.product.FileTag)
+
+@main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+<div class="row-fluid">
+	<div class="span4">
+
+		<table class="table table-striped table-bordered table-hover table-condensed">
+			<tr><td>Tag Name</td><td>@fileTag.tagName</td></tr>
+			<tr><td>Tag Rank</td><td>@fileTag.tagRank</td></tr>
+			<tr><td>Original Create Date</td><td>@fileTag.createDate</td></tr>
+		</table>
+	</div>
+	<div class="span8"></div>
+</div>
+		
+}

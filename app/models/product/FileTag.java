@@ -67,7 +67,14 @@ public class FileTag extends CreateUpdateAuditData {
 	public static List<FileTag> getAll() {
 		return find.all();
 	}
-	
+
+	public static List<FileTag> getMostRanked(int maxRows) {
+		return find
+			.orderBy("tagRank")
+			.setMaxRows(maxRows)
+			.findList();
+	}
+
 	public static FileTag getByTagName(String tagName) {
 		
 		Logger.debug("getByTagName start");

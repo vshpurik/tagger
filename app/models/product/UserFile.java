@@ -33,6 +33,7 @@ import com.avaje.ebean.Ebean;
 import com.google.common.base.CharMatcher;
 
 import play.Logger;
+import util.ConfigParameter;
 
 import models.CreateUpdateAuditData;
 import models.account.AppUser;
@@ -157,7 +158,13 @@ public class UserFile extends CreateUpdateAuditData {
 	private void findTags(String line) {
 		String[] words = line.split(" ");
 		for(String word: words) {
-			word = 	CharMatcher.JAVA_LETTER_OR_DIGIT.retainFrom(word).toLowerCase();
+			
+			// remove all characters but letters
+			word = 	CharMatcher.JAVA_LETTER.retainFrom(word).toLowerCase();
+			
+			// filter out "useless" words
+			if (isUseless(word))
+				continue;
 			
 			if (tagSet.contains(word)) {
 				// this word appeared more than once in the uploaded file, add it to the tagMap
@@ -178,5 +185,20 @@ public class UserFile extends CreateUpdateAuditData {
 			}
 		}
 	}
-	
+
+	/**
+	 * This method checks if word should not be used for tagging.
+	 * @param word
+	 * @return true if word should not be used as a tag
+	 */
+	private static boolean isUseless(String word) {
+		if (word.length() < ConfigParameter.FILE_TAG_MIN_LENGTH)
+			return true;
+		
+		for(String uselessWord: ConfigParameter.USELESS_WORDS)
+			if (word.equals(uselessWord))
+				return true;
+		
+		return false;
+	}
 }

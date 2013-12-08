@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Orange #fa5b0f
+====================================================================== */
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #fa5b0f;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #fa5b0f;
+}
+#page-title h2 {
+border-bottom: 2px solid #fa5b0f;
+}
+
+.entry span.meta small{
+    background: #fa5b0f;
+    border: 1px solid #fa5b0f;
+    
+}
+a:hover, a:focus{color: #fa5b0f !important;}

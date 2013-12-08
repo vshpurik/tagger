@@ -1,0 +1,29 @@
+@(title: String, userFile: models.product.UserFile)
+
+@main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+<div class="row-fluid">
+
+	<table class="table">
+	
+	<tr>
+		<th>Tag Id</th>
+		<th>Tag Name</th>
+		<th>Upload Date</th>
+		<th>Uploaded From</th>
+		<th></th>
+	</tr>
+	
+	@for(tag <- userFile.tags) {
+		<tr>
+			<td>@tag.fileTagId</td>
+			<td>@tag.tagName</td>
+			<td>@tag.createDate</td>
+			<td>@tag.createIp</td>
+		</tr>
+	}		
+	</table>
+		
+</div>
+		
+}

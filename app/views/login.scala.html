@@ -1,0 +1,65 @@
+@(loginForm: play.data.Form[_])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main(Messages("playauthenticate.login.title"), models.GlobalEnum.SiteNavigationOption.login) {
+
+<div class="row-fluid">
+	<div class="span12">
+		
+		<div class="span1"></div>
+		
+		<div class="span5">
+
+			@helper.form(
+				controllers.account.routes.AccountMgmt.doLogin,
+				'class -> "form-signin") {
+
+				<h2 class="form-signin-heading">@Messages("playauthenticate.login.title")</h2>
+
+				@if(loginForm.hasGlobalErrors) { 
+					<p class="error">
+						<span class="label label-important">@loginForm.globalError.message</span>
+					</p>
+				}
+
+				@_emailPartial(loginForm)
+
+				@inputPassword(
+					loginForm("password"),
+					'_showConstraints -> false,
+					'_label -> "",
+					'placeholder -> Messages("playauthenticate.login.password.placeholder"),
+					'class -> "input-xlarge"
+				)
+			
+				<div class="control-group">
+					<div class="controls">
+						<input type="submit" name="@{models.GlobalEnum.ButtonName.login.name()}" value="@Messages("playauthenticate.login.now")" class="btn btn-primary" />
+						<input type="submit" name="@{models.GlobalEnum.ButtonName.resetPassword.name()}" value="@Messages("playauthenticate.login.forgot.password")" class="btn pull-right" />
+					</div>
+				</div>
+			}
+		</div>
+	
+		<div class="span1"></div>
+	
+		<div class="span4">
+			<div class="row">
+				<div class="headline">
+					<h3>@Messages("playauthenticate.login.oauth")</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				@_providerPartial(skipCurrent=false)
+			</div>
+		</div>
+		
+		<div class="span1"></div>
+		
+	</div>
+</div>
+
+}

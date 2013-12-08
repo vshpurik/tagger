@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Pink #c71c77
+====================================================================== */
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #c71c77;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #c71c77;
+}
+#page-title h2 {
+border-bottom: 2px solid #c71c77;
+}
+
+.entry span.meta small{
+    background: #c71c77;
+    border: 1px solid #c71c77;
+    
+}
+a:hover, a:focus{color: #c71c77 !important;}

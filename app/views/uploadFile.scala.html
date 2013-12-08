@@ -1,0 +1,21 @@
+@(title: String)
+
+@import views.html.helper._
+
+@main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+	@form(action = routes.FileMgmt.doUploadFile, 'enctype -> "multipart/form-data") {
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="form-group">
+				<input type="file" class="form-control" id="@{FileMgmt.FILE_UPLOAD_FORM_FIELD_NAME}" name="@{FileMgmt.FILE_UPLOAD_FORM_FIELD_NAME}" placeholder="Select File">
+			</div>
+		</div>
+		
+		<div class="span4">
+			<button type="submit" class="btn btn-default">Upload</button>
+		</div>
+	</div>
+	}
+		
+}

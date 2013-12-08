@@ -1,0 +1,30 @@
+/* =================================================================== */
+/* Cyan #37b6bd
+====================================================================== */
+
+
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #37b6bd;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #37b6bd;
+}
+#page-title h2 {
+border-bottom: 2px solid #37b6bd;
+}
+
+.entry span.meta small{
+    background: #37b6bd;
+    border: 1px solid #37b6bd;
+    
+}
+a:hover, a:focus{color: #37b6bd !important;}

@@ -1,0 +1,9 @@
+@(verificationUrl: String, token: String, name: String)@{util.ConfigParameter.EmailSalutation} @name,
+
+@{util.ConfigParameter.CompanyName} registration confirmation
+
+Thank you for registering with @{util.ConfigParameter.CompanyName}. Please click the following link to complete your registration:
+
+ @verificationUrl
+
+Please don't hesitate to contact customer support if you have any questions.

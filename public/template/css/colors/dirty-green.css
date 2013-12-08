@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Dirty Green #3b6e40
+====================================================================== */
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #3b6e40;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #3b6e40;
+}
+
+#page-title h2 {
+border-bottom: 2px solid #3b6e40;
+}
+.entry span.meta small{
+    background: #3b6e40;
+    border: 1px solid #3b6e40;
+    
+}
+a:hover, a:focus{color: #3b6e40 !important;}

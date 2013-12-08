@@ -1,0 +1,21 @@
+@(title: String, tagList: List[models.product.FileTag])
+
+@main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+	@if(tagList.size() == 0) {
+	
+		<div class="row-fluid">
+			<h3>User has no tags.</h3>
+		</div>	
+	
+	} else {
+	
+		<div class="row-fluid">
+			@for(tag <- tagList) {
+				@tag.tagName &nbsp;
+			}
+		</div>
+		
+	}
+
+}

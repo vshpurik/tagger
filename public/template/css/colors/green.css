@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Green #72b626
+====================================================================== */
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #72b626;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #72b626;
+}
+#page-title h2 {
+border-bottom: 2px solid #72b626;
+}
+
+.entry span.meta small{
+    background: #72b626;
+    border: 1px solid #72b626;
+    
+}
+a:hover, a:focus{color: #72b626 !important;}
+#filters a {border: 1px solid #72b626;}

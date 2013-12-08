@@ -1,15 +1,83 @@
-@(title: String)(content: Html)
+@(title: String, nav: models.GlobalEnum.SiteNavigationOption)(content: Html)
+
+@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._
 
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @content
-    </body>
+
+	<head>
+		<title>@title</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		
+		<link rel="stylesheet" href="@routes.Assets.at("template/css/bootstrap.css")">
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("template/css/wide.css")" id="layout">
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("template/css/style.css")">
+		<link rel="stylesheet" type="text/css" href="@routes.Assets.at("template/css/colors/default.css")" id="colors">
+		
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+	</head>
+	
+	<body>
+    
+	
+		<div id="wrapper" class="container-fluid">
+		
+			<!-- >>>>>>>>>> Main Menu <<<<<<<<<< -->
+			<div id="navigation" class="margintop">
+				<ul id="nav">
+				
+				@subjectPresent() {
+					<li><a href="@{controllers.routes.FileMgmt.uploadFile()}">Upload File</a></li>
+					<li><a href="@{controllers.routes.FileMgmt.displayUserFiles()}">View My Files</a></li>
+					<li><a href="@{controllers.routes.FileMgmt.displayUserTags()}">View My Tags</a></li>
+				}
+				
+				<li><a href="@{controllers.routes.FileMgmt.displayAllTags()}">View All Tags</a></li>
+
+				@subjectPresent() {
+					<li><a href="@com.feth.play.module.pa.controllers.routes.Authenticate.logout()">@Messages("navigation.logout")</a></li>
+				}
+								
+				@subjectNotPresent() {
+					<li><a href="@{controllers.account.routes.AccountMgmt.login()}">Login</a></li>
+					<li><a href="@{controllers.account.routes.AccountMgmt.signup()}">Register</a></li>
+				}
+
+				</ul>
+				
+			</div>
+			<!-- >>>>>>>>>> End of main menu <<<<<<<<<< -->	
+		</div>
+		
+		<div id="wrapper" class="container-fluid">
+
+			<div class="row-fluid">
+				@if(flash.contains(util.ConfigParameter.FLASH_ERROR_KEY)) {
+				<div class="alert alert-error">
+					@flash().get(util.ConfigParameter.FLASH_ERROR_KEY)
+				</div>
+				}
+
+				@if(flash.contains(util.ConfigParameter.FLASH_MESSAGE_KEY)) {
+					<div class="alert alert-success">
+						@flash().get(util.ConfigParameter.FLASH_MESSAGE_KEY)
+					</div>
+				}
+			</div>
+
+			<div class="row-fluid">
+				@content
+			</div>
+			
+		</div>
+
+	
+		<!-- script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script -->
+		
+		<script src="@routes.Assets.at("template/js/jquery.js")" type="text/javascript"></script>
+		<script src="@routes.Assets.at("template/js/bootstrap.js")" type="text/javascript"></script>
+		
+	</body>
 </html>

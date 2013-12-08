@@ -1,0 +1,27 @@
+/* =================================================================== */
+/* Beige #bfa980
+====================================================================== */
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #bfa980;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #bfa980;
+}
+
+#page-title h2 {
+border-bottom: 2px solid #bfa980;
+}
+.entry span.meta small{
+    background: #bfa980;
+    border: 1px solid #bfa980;
+    
+}
+a:hover, a:focus{color: #bfa980 !important;}

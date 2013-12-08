@@ -1,0 +1,27 @@
+/* =================================================================== */
+/* Navy #495d7f
+====================================================================== */
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #495d7f;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #495d7f;
+}
+#page-title h2 {
+border-bottom: 2px solid #495d7f;
+}
+
+.entry span.meta small{
+    background: #495d7f;
+    border: 1px solid #495d7f;
+    
+}
+a:hover, a:focus{color: #495d7f !important;}

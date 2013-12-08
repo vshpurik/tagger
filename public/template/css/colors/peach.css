@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Peach #fcab55
+====================================================================== */
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #fcab55;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #fcab55;
+}
+#page-title h2 {
+border-bottom: 2px solid #fcab55;
+}
+
+.entry span.meta small{
+    background: #fcab55;
+    border: 1px solid #fcab55;
+    
+}
+a:hover, a:focus{color: #fcab55 !important;}

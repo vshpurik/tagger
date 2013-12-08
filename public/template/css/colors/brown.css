@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Brown #784e3d
+====================================================================== */
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #784e3d;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #784e3d;
+}
+
+#page-title h2 {
+border-bottom: 2px solid #784e3d;
+}
+.entry span.meta small{
+    background: #784e3d;
+    border: 1px solid #784e3d;
+    
+}
+a:hover, a:focus{color: #784e3d !important;}

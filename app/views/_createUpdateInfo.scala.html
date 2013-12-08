@@ -1,0 +1,18 @@
+@(formData: play.data.Form[_])
+
+@import helper._
+@implicitField = @{ FieldConstructor(twitterBootstrapInput.f) }
+
+@helper.input(
+	formData("createDate"),
+	'_label -> "Created on",
+	'_showConstraints -> false) { (id, name, value, args) =>
+		<input type="text" name="@name" id="@id" value="@value" readonly @toHtmlArgs(args)>
+}
+
+@helper.input(
+	formData("updateDate"),
+	'_label -> "Updated on",
+	'_showConstraints -> false) { (id, name, value, args) =>
+		<input type="text" name="@name" id="@id" value="@value" readonly @toHtmlArgs(args)>
+}

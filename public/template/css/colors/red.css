@@ -1,0 +1,27 @@
+/* =================================================================== */
+/* Red #c62020
+====================================================================== */
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #c62020;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #c62020;
+}
+
+#page-title h2 {
+border-bottom: 2px solid #c62020;
+}
+.entry span.meta small{
+    background: #c62020;
+    border: 1px solid #c62020;
+    
+}
+a:hover, a:focus{color: #c62020 !important;}

@@ -1,0 +1,39 @@
+@(title: String, userFileList: List[models.product.UserFile])
+
+@main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+	@if(userFileList.size() == 0) {
+	
+		<div class="row-fluid">
+			<h3>User has no uploaded files.</h3>
+		</div>	
+	
+	} else {
+	
+		<div class="row-fluid">
+		
+			<table class="table">
+			
+			<tr>
+				<th>File Id</th>
+				<th>File Name</th>
+				<th>Upload Date</th>
+				<th>Uploaded From</th>
+				<th></th>
+			</tr>
+			
+			@for(userFile <- userFileList) {
+				<tr>
+					<td>@userFile.userFileId</td>
+					<td>
+						<a href="@{controllers.routes.FileMgmt.displayUserFileTags(userFile.userFileId)}">@userFile.fileName</a></td>
+					<td>@userFile.createDate</td>
+					<td>@userFile.createIp</td>
+				</tr>
+			}		
+			</table>
+				
+		</div>
+	}
+		
+}

@@ -1,0 +1,12 @@
+@(f: play.data.Form[_], constraints: Boolean = false)
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@inputText(
+	f("email"),
+	'_showConstraints -> constraints,
+	'_label -> "",
+	'placeholder -> Messages("playauthenticate.login.email.placeholder"),
+	'class -> "input-xlarge"
+)

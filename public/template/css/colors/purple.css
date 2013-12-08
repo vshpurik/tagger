@@ -1,0 +1,28 @@
+/* =================================================================== */
+/* Purple #6957af
+====================================================================== */
+
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #6957af;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #6957af;
+}
+#page-title h2 {
+border-bottom: 2px solid #6957af;
+}
+
+.entry span.meta small{
+    background: #6957af;
+    border: 1px solid #6957af;
+    
+}
+a:hover, a:focus{color: #6957af !important;}

@@ -2,8 +2,59 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                           controllers.Application.index()
+#######################################################################
+#   
+#######################################################################
 
-# Map static resources from the /public folder to the /assets URL path
+GET     /                                             controllers.Application.index()
+GET     /uploadFile                                   controllers.FileMgmt.uploadFile()
+POST    /doUploadFile                                 controllers.FileMgmt.doUploadFile()
+
+GET     /displayUserFiles                             controllers.FileMgmt.displayUserFiles()
+GET     /displayUserFileTags/:userFileId              controllers.FileMgmt.displayUserFileTags(userFileId: Long)
+GET     /displayUserTags                              controllers.FileMgmt.displayUserTags()
+GET     /displayAllTags                               controllers.FileMgmt.displayAllTags()
+
+#######################################################################
+#   Account Management
+#######################################################################
+
+GET     /login                                        controllers.account.AccountMgmt.login
+POST    /login                                        controllers.account.AccountMgmt.doLogin
+
+GET     /logout                                       com.feth.play.module.pa.controllers.Authenticate.logout
+GET     /authenticate/:provider                       com.feth.play.module.pa.controllers.Authenticate.authenticate(provider: String)
+
+GET     /signup                                       controllers.account.AccountMgmt.signup
+POST    /signup                                       controllers.account.AccountMgmt.doSignup
+
+GET     /accounts/unverified                          controllers.account.Signup.unverified
+GET     /authenticate/:provider/denied                controllers.account.Signup.oAuthDenied(provider: String)
+
+GET     /accounts/verify/:token                       controllers.account.Signup.verify(token: String)
+GET     /accounts/exists                              controllers.account.Signup.exists
+
+GET     /accounts/password/reset/:token               controllers.account.Signup.resetPassword(token: String)
+POST    /accounts/password/reset                      controllers.account.Signup.doResetPassword
+
+GET     /accounts/password/change                     controllers.account.Account.changePassword
+POST    /accounts/password/change                     controllers.account.Account.doChangePassword
+
+GET     /accounts/verify                              controllers.account.Account.verifyEmail
+
+GET     /accounts/add                                 controllers.account.Account.link
+
+GET     /accounts/link                                controllers.account.Account.askLink
+POST    /accounts/link                                controllers.account.Account.doLink
+
+GET     /accounts/merge                               controllers.account.Account.askMerge
+POST    /accounts/merge                               controllers.account.Account.doMerge
+
+GET     /login/password/forgot                        controllers.account.Signup.forgotPassword(email: String ?= "")
+POST    /login/password/forgot                        controllers.account.Signup.doForgotPassword
+
+#######################################################################
+# Map static resources from the /public folder to the /assets URL path   
+#######################################################################
+
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

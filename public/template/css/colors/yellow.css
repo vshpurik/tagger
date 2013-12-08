@@ -1,0 +1,27 @@
+/* =================================================================== */
+/* Yellow #ffb400
+====================================================================== */
+#navigation ul li a:hover, 
+#navigation ul li:hover > a, 
+#bolded-line, 
+.button.gray:hover, 
+.button.light:hover, 
+.button.color, 
+input[type="button"] {
+	background: #ffb400;
+        color: #fff !important;
+}
+
+.headline h3, .headline h4 {
+border-bottom: 1px solid #ffb400;
+}
+
+#page-title h2 {
+border-bottom: 2px solid #ffb400;
+}
+.entry span.meta small{
+    background: #ffb400;
+    border: 1px solid #ffb400;
+    
+}
+a:hover, a:focus{color: #ffb400 !important;}

@@ -1,3 +1,10 @@
+TODO:
+
+- figure out how to configure smtp using heroku's credentials instead of mine
+
+=========================================================================
+
+
 // Heroku database info
 heroku-postgres-ae21f95b :: rose
 
@@ -7,7 +14,16 @@ User		vkekwpfjumwxci
 Port		5432
 Password	ZXNzxqbiz0o5Nf6OlYn-epEzP4
 
+--------------------------------------------------------------------------
+
+$ heroku create
+Creating safe-dawn-5454... done, stack is cedar
+http://safe-dawn-5454.herokuapp.com/ | git@heroku.com:safe-dawn-5454.git
+Git remote heroku added
+vlad@VLAD-PC /c/dev/tagger (master)
+
+--------------------------------------------------------------------------
 
 
-//
-
+// PlayAuthenticate page
+https://github.com/joscha/play-authenticate

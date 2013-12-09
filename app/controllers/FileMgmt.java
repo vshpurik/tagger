@@ -36,36 +36,11 @@ public class FileMgmt extends Controller {
 
     @Restrict(@Group(models.account.SecurityRole.SecurityRoleCustomer))
     public static Result doUploadFile() {
-    	final String pageTitle = "File Upload Result";
-    	
-    	MultipartFormData body = request().body().asMultipartFormData();
-    	final FilePart uploadedFile = body.getFile(FILE_UPLOAD_FORM_FIELD_NAME);
-    	
-    	if (uploadedFile == null) {
-    		Logger.error("file upload failed");
-    		ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File upload failed!");
-    		return ok(views.html.uploadFileResult.render(pageTitle));
-    	}
-
-    	final String fileName = uploadedFile.getFilename();
-    	if (fileName.isEmpty()) {
-    		Logger.error("file upload failed; fileName is empty");
-        	ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File upload failed!");
-    		return ok(views.html.uploadFileResult.render(pageTitle));
-    	}
-
-    	final AppUser appUser = controllers.account.AccountMgmt.getLocalUser(session());
-	    if (appUser == null) {
-	    	Logger.error("Something is messed up ... user is not in the database.");
-	    	ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "Please login first to upload files!");
-	    	return ok(views.html.uploadFileResult.render(pageTitle));
-	    }
-	    			
+    	// Execute this method in a separate thread pool (Akka thread pool)
 	    Promise<Boolean> promiseOfBoolean = play.libs.Akka.future(
 	    	new Callable<Boolean>() {
 	        	public Boolean call() {
-	        		UserFile userFile = new UserFile();
-	        		return userFile.processNewFile(appUser, fileName, uploadedFile.getFile());
+	        		return doUploadFileImpl();
 	        	}
 	        }
         );
@@ -74,19 +49,49 @@ public class FileMgmt extends Controller {
 	    	promiseOfBoolean.map(
 	    		new Function<Boolean,Result>() {
 	    	        public Result apply(Boolean processFileResult) {
+	    	        	String uploadResultMessage;
+	    	        	
 	    	    		if (processFileResult) {
 	    	    			Logger.info("file has been uploaded");
-	    	    			ctx().flash().put(util.ConfigParameter.FLASH_MESSAGE_KEY, "File " + fileName + " has been uploaded!");
+	    	    			uploadResultMessage = "File has been uploaded!";
 	    	    		} else {
 	    	    			Logger.error("file upload failed; error while executing processNewFile().");
-	    	    			ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File " + fileName + " upload failed!");
+	    	    			uploadResultMessage = "File upload failed!";
 	    	    		}
-	    	    		return ok(views.html.uploadFileResult.render(pageTitle));
+	    	    		return ok(views.html.uploadFileResult.render("File Upload Result", uploadResultMessage));
 	    	        }
 	    		}
 	    	)
 	    );
     	
+    }
+    
+    private static boolean doUploadFileImpl() {
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	final FilePart uploadedFile = body.getFile(FILE_UPLOAD_FORM_FIELD_NAME);
+    	
+    	if (uploadedFile == null) {
+    		Logger.error("file upload failed");
+    		ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File upload failed!");
+    		return false;
+    	}
+
+    	final String fileName = uploadedFile.getFilename();
+    	if (fileName.isEmpty()) {
+    		Logger.error("file upload failed; fileName is empty");
+        	ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File upload failed!");
+    		return false;
+    	}
+
+    	final AppUser appUser = controllers.account.AccountMgmt.getLocalUser(session());
+	    if (appUser == null) {
+	    	Logger.error("Something is messed up ... user is not in the database.");
+	    	ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "Please login first to upload files!");
+	    	return false;
+	    }
+	    
+	    UserFile userFile = new UserFile();
+	    return userFile.processNewFile(appUser, fileName, uploadedFile.getFile());
     }
     
     @Restrict(@Group(models.account.SecurityRole.SecurityRoleCustomer))

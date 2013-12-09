@@ -1,5 +1,11 @@
-@(title: String)
+@(title: String, uploadResultMessage: String)
 
 @main(title, models.GlobalEnum.SiteNavigationOption.none) {
+
+<div class="row-fluid">
+	<div class="span12">
+		<h3>@uploadResultMessage</h3>
+	</div>		
+</div>
 
 }

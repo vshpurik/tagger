@@ -8,9 +8,19 @@ https://github.com/vshpurik/tagger
 
 Assumptions:
 
-1. Files will contain ASCII/UTF-8 encoded text
-2. Tags will be generated based on alphanumeric content only
-3. The same file is allowed to be processed multiple times (affecting tag ranks)    
+1. Play thread pools have not been tuned for best performance.
+2. There are three files under conf/play-authenticate that have not been commited
+   to the GitHub repository due to security concerns. These files are reference in
+   the conf/application.conf and are:
+     - deadbolt.conf
+     - mine.conf
+     - smtp.con
+2. User uploaded files will contain ASCII/UTF-8 encoded text.
+3. The same file is allowed to be processed multiple times (affecting tag ranks).
+4. Tags will be generated based on alphabetic content only.
+5. The following list of words will be used to filter out "useless" tags (defined in util.ConfigParameter.java):
+     "a", "and", "as", "in", "is", "of", "that", "the", "this", "to", "with"
+6. Only words greater than one character in length will be used as tags.
 
 =========================================================================
 
@@ -23,13 +33,6 @@ User		vkekwpfjumwxci
 Password	ZXNzxqbiz0o5Nf6OlYn-epEzP4
 
 =========================================================================
-
-TODO:
-- figure out how to configure smtp using heroku's credentials instead of mine
-- remove IP data from CreateUpdateAuditData
-
-
---------------------------------------------------------------------------
 
 // Heroku deployment steps
 
@@ -46,14 +49,3 @@ delete from app_user_file_tag
 delete from user_file_file_tag
 delete from file_tag
 delete from user_file
-
-=========================================================================
-
-Git page:
-https://github.com/jasondavies/d3-cloud
-
-Configuration notes:
-http://www.jasondavies.com/wordcloud/about/
-
-How to set font size in js using domain/range:
-http://stackoverflow.com/questions/10727334/d3-js-tag-cloud-setting-text-size-range

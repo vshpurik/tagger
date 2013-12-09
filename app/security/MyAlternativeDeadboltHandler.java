@@ -34,7 +34,6 @@ public class MyAlternativeDeadboltHandler extends AbstractDeadboltHandler
     @Override
     public Result onAuthFailure(Http.Context context, String content)
     {
-    	// TODO report access failure Logger.info("");
     	return redirect("/");
     }
 }

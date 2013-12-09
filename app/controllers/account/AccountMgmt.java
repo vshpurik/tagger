@@ -27,17 +27,10 @@ public class AccountMgmt extends Controller {
 	}
 
 	public static Result login() {
-		// if request was made using http protocol, redirect to https
-		if (util.Util.isConnectionSecure()) {
-			return ok(views.html.login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));			
-		} else {
-			return redirect(controllers.account.routes.AccountMgmt.login().absoluteURL(request(), true));
-		}
+		return ok(views.html.login.render(MyUsernamePasswordAuthProvider.LOGIN_FORM));			
 	}
 
 	public static Result doLogin() {
-		// TODO add check here for SSL and do something if it's not
-		
 		final Form<MyLogin> filledForm = MyUsernamePasswordAuthProvider.LOGIN_FORM.bindFromRequest();
 
 		/*  Before we do anything here, check if user clicked "Reset password" button.
@@ -59,17 +52,10 @@ public class AccountMgmt extends Controller {
 	}
 
 	public static Result signup() {
-		// if request was made using http protocol, redirect to https
-		if (util.Util.isConnectionSecure()) {
-			return ok(views.html.signup.render(MyUsernamePasswordAuthProvider.SIGNUP_FORM));
-		} else {
-			return redirect(controllers.account.routes.AccountMgmt.signup().absoluteURL(request(), true));
-		}
+		return ok(views.html.signup.render(MyUsernamePasswordAuthProvider.SIGNUP_FORM));
 	}
 
 	public static Result doSignup() {
-		// TODO add check here for SSL and do something if it's not
-		
 		final Form<MySignup> filledForm = MyUsernamePasswordAuthProvider.SIGNUP_FORM.bindFromRequest();
 		if (filledForm.hasErrors()) {
 			// User did not fill everything properly

@@ -1,8 +1,8 @@
-@(verificationUrl: String, token: String, name: String)@{util.ConfigParameter.EmailSalutation} @name,
+@(verificationUrl: String, token: String, name: String)@{util.ConfigParameter.EMAIL_SALUTATION} @name,
 
-@{util.ConfigParameter.CompanyName} registration confirmation
+@{util.ConfigParameter.COMPANY_NAME} registration confirmation
 
-Thank you for registering with @{util.ConfigParameter.CompanyName}. Please click the following link to complete your registration:
+Thank you for registering with @{util.ConfigParameter.COMPANY_NAME}. Please click the following link to complete your registration:
 
  @verificationUrl
 

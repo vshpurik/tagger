@@ -49,27 +49,6 @@ public class Global extends GlobalSettings {
 		Logger.info("received application shutdown request");
 	}
 	
-	// TODO nice to have
-	/*
-	@Override
-	public Result onError(RequestHeader requestHeader, Throwable t) {
-		Logger.error("onError handler; uri=" + requestHeader.uri() + ", exception=" + t.getStackTrace());
-		return Results.internalServerError(views.html.message.render(Messages.get("error.generic"), Messages.get("error.genericSystemError")));
-	}
-
-	@Override
-	public Result onHandlerNotFound(play.mvc.Http.RequestHeader requestHeader) {
-		Logger.error("received request for unknown url/site: " + requestHeader.uri());
-		return Results.internalServerError(views.html.message.render(Messages.get("error.generic"), Messages.get("error.genericPageNotFoundError")));
-	}
-	
-	@Override
-	public Result onBadRequest(RequestHeader requestHeader, String error) {
-		Logger.error("onError handler; uri=" + requestHeader.uri() + ", error=" + error);
-		return Results.internalServerError(views.html.message.render(Messages.get("error.generic"), Messages.get("error.genericSystemError")));
-	}
-	*/
-	
 	/***********************************************************************************************
 	 *
 	 * Private methods

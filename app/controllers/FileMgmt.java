@@ -1,12 +1,7 @@
 package controllers;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.Callable;
 
 import models.account.AppUser;
@@ -36,11 +31,32 @@ public class FileMgmt extends Controller {
 
     @Restrict(@Group(models.account.SecurityRole.SecurityRoleCustomer))
     public static Result doUploadFile() {
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	final FilePart uploadedFile = body.getFile(FILE_UPLOAD_FORM_FIELD_NAME);
+
+    	if (uploadedFile == null) {
+    		Logger.error("file upload failed");
+    		return ok(views.html.uploadFileResult.render("File Upload Result", "File upload failed!"));
+    	}
+
+    	final String fileName = uploadedFile.getFilename();
+    	if (fileName.isEmpty()) {
+    		Logger.error("file upload failed; fileName is empty");
+        	return ok(views.html.uploadFileResult.render("File Upload Result", "File upload failed; fileName is empty!"));
+    	}
+
+    	final AppUser appUser = controllers.account.AccountMgmt.getLocalUser(session());
+	    if (appUser == null) {
+	    	Logger.error("Something is messed up ... user is not in the database.");
+	    	return ok(views.html.uploadFileResult.render("File Upload Result", "Please login first to upload files!"));
+	    }
+
     	// Execute this method in a separate thread pool (Akka thread pool)
 	    Promise<Boolean> promiseOfBoolean = play.libs.Akka.future(
 	    	new Callable<Boolean>() {
 	        	public Boolean call() {
-	        		return doUploadFileImpl();
+	        	    UserFile userFile = new UserFile();
+	        	    return userFile.processNewFile(appUser, fileName, uploadedFile.getFile());
 	        	}
 	        }
         );
@@ -64,34 +80,6 @@ public class FileMgmt extends Controller {
 	    	)
 	    );
     	
-    }
-    
-    private static boolean doUploadFileImpl() {
-    	MultipartFormData body = request().body().asMultipartFormData();
-    	final FilePart uploadedFile = body.getFile(FILE_UPLOAD_FORM_FIELD_NAME);
-    	
-    	if (uploadedFile == null) {
-    		Logger.error("file upload failed");
-    		ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File upload failed!");
-    		return false;
-    	}
-
-    	final String fileName = uploadedFile.getFilename();
-    	if (fileName.isEmpty()) {
-    		Logger.error("file upload failed; fileName is empty");
-        	ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "File upload failed!");
-    		return false;
-    	}
-
-    	final AppUser appUser = controllers.account.AccountMgmt.getLocalUser(session());
-	    if (appUser == null) {
-	    	Logger.error("Something is messed up ... user is not in the database.");
-	    	ctx().flash().put(util.ConfigParameter.FLASH_ERROR_KEY, "Please login first to upload files!");
-	    	return false;
-	    }
-	    
-	    UserFile userFile = new UserFile();
-	    return userFile.processNewFile(appUser, fileName, uploadedFile.getFile());
     }
     
     @Restrict(@Group(models.account.SecurityRole.SecurityRoleCustomer))

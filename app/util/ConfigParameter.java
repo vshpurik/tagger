@@ -9,7 +9,7 @@ public class ConfigParameter {
 	public static final float MAX_TEXT_SIZE_TOP = 30;
 	public static final int MAX_TAG_DISPLAY_COUNT = 500;
 	
-	public static final String[] USELESS_WORDS = {"a", "and", "as", "in", "is", "of", "that", "the", "this", "to", "with"};
+	public static final String[] USELESS_WORDS = {"a", "and", "as", "at", "for", "in", "is", "it", "of", "or", "that", "the", "this", "to", "with"};
 	public static final int FILE_TAG_MIN_LENGTH = 2;
 	
 	public static final String EMAIL_SALUTATION = "Dear";

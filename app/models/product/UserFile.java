@@ -51,9 +51,9 @@ public class UserFile extends CreateUpdateAuditData {
 	@Column(name="file_name")
 	public String fileName;
 	
-	@Lob
-	@Column(name="file_content")
-	public String fileContent;
+	// @Lob
+	// @Column(name="file_content")
+	// public String fileContent;
 	
 	@ManyToOne(fetch = FetchType.LAZY, targetEntity = AppUser.class)
 	@JoinColumn(name="app_user_id")
@@ -121,7 +121,8 @@ public class UserFile extends CreateUpdateAuditData {
 				fileContent.append(line + lineSeparator);
 				findTags(line);
 			}
-			this.fileContent = fileContent.toString();
+			
+			// this.fileContent = fileContent.toString();
 			save();
 
 			for(Entry<String, FileTag> e: tagMap.entrySet()) {
